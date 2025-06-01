@@ -12,7 +12,7 @@ class NormalizeData {
   }
 }
 
-class ObjectsToArray {
+class RowObjectParser {
   #data;
   constructor(data) {
     this.#data = data;
@@ -34,7 +34,7 @@ class ObjectsToArray {
   }
 }
 
-class MaxByDensity {
+class DensityAnalyzer {
   #data;
   constructor(data) {
     this.#data = data;
@@ -80,7 +80,7 @@ class SortByDensityPercentage {
   }
 }
 
-class GenerateTable {
+class TableFormatter {
   #data;
   #metaData;
   constructor(data, metaData) {
@@ -102,8 +102,8 @@ class GenerateTable {
 }
 
 const normalizedData = new NormalizeData(data).getSplitedTrimmedRows();
-const objectsInArray = new ObjectsToArray(normalizedData).parseRowsToObjects();
-const maxDensity = new MaxByDensity(objectsInArray).getMaxByDensity();
+const objectsInArray = new RowObjectParser(normalizedData).parseRowsToObjects();
+const maxDensity = new DensityAnalyzer(objectsInArray).getMaxByDensity();
 
 const addedDensityPercentageData = new DensityPercentage(
   objectsInArray,
@@ -114,7 +114,7 @@ const sortedDataByDensityPercentage = new SortByDensityPercentage(
   addedDensityPercentageData,
 ).getSortedData();
 
-const tableData = new GenerateTable(
+const tableData = new TableFormatter(
   sortedDataByDensityPercentage,
   meta,
 ).createTableData();
